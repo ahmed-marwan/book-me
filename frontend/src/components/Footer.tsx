@@ -1,13 +1,14 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function Footer() {
   return (
     <footer>
-      <Box sx={{ textAlign: 'center' }}>
-        <Typography variant="body1">Copyright &copy; Book Me</Typography>
-      </Box>
+      <Container>
+        <Row>
+          <Col className="text-center py-3">Copyright &copy; Book Me</Col>
+        </Row>
+      </Container>
     </footer>
   );
 }

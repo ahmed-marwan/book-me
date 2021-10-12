@@ -1,66 +1,38 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 
 function Header() {
   return (
     <header>
-      <Box>
-        <AppBar position="static">
-          <Toolbar
-            sx={{
-              width: '70%',
-              mx: 'auto',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Link href="/" underline="none">
-              <Typography variant="h5" color="whitesmoke">
-                Book Me
-              </Typography>
-            </Link>
-            <Box
-              sx={{
-                width: '20%',
-                display: 'flex',
-                justifyContent: 'space-around',
-              }}
-            >
-              <Link href="/login" underline="none">
-                <IconButton
-                  size="large"
-                  edge="start"
-                  sx={{ color: 'whitesmoke' }}
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Typography variant="button" color="whitesmoke">
-                  login
-                </Typography>
-              </Link>
+      <Navbar className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <Container>
+          <LinkContainer to="/">
+            <Navbar.Brand>Book Me</Navbar.Brand>
+          </LinkContainer>
 
-              <Link href="/mybooks" underline="none">
-                <IconButton
-                  size="large"
-                  edge="start"
-                  sx={{ color: 'whitesmoke' }}
-                >
-                  <LibraryBooksIcon />
-                </IconButton>
-                <Typography variant="button" color="whitesmoke">
-                  my books
-                </Typography>
-              </Link>
-            </Box>
-          </Toolbar>
-        </AppBar>
-      </Box>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-end"
+          >
+            <Nav>
+              <LinkContainer to="/mybooks">
+                <Nav.Link>
+                  <i className="fas fa-stream"></i>My Books
+                </Nav.Link>
+              </LinkContainer>
+
+              <LinkContainer to="/login">
+                <Nav.Link>
+                  <i className="fas fa-user"></i>Login
+                </Nav.Link>
+              </LinkContainer>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </header>
   );
 }
