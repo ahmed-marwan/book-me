@@ -1,9 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Row, Col } from 'react-bootstrap';
 import Book from '../components/Book';
-import { books } from '../books';
+
+export interface BookDefinition {
+  id: number;
+  title: string;
+  author: string;
+  description: string;
+  image: string;
+  genre: string;
+  owner: string;
+  isAvailable: boolean;
+}
 
 function HomeScreen() {
+  const [books, setBooks] = useState<BookDefinition[]>([]);
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const { data: books } = await axios.get<BookDefinition[]>('/api/books');
+
+        setBooks(books);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
   return (
     <>
       <h1>Explore Available Books</h1>

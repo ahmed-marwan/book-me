@@ -1,18 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
+import { BookDefinition } from '../screens/HomeScreen';
 
 interface BookProps {
-  book: {
-    id: number;
-    title: string;
-    author: string;
-    description: string;
-    image: string;
-    genre: string;
-    owner: string;
-    isAvailable: boolean;
-  };
+  book: BookDefinition;
 }
 
 function Book({ book }: BookProps) {

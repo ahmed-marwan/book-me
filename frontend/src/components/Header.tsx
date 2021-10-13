@@ -8,7 +8,9 @@ function Header() {
       <Navbar className="navbar navbar-expand-lg navbar-dark bg-primary">
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>Book Me</Navbar.Brand>
+            <Navbar.Brand>
+              <strong>Book Me</strong>
+            </Navbar.Brand>
           </LinkContainer>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

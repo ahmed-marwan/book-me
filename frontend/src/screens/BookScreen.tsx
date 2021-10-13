@@ -1,20 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 import {
   Row,
   Col,
   Image,
   ListGroup,
-  Card,
   Button,
   ListGroupItem,
 } from 'react-bootstrap';
+import { BookDefinition } from './HomeScreen';
 
-import { books } from '../books';
+const initialBookState = {
+  id: 0,
+  title: '',
+  author: '',
+  description: '',
+  image: '',
+  genre: '',
+  owner: '',
+  isAvailable: false,
+};
 
 function BookScreen() {
+  const [book, setBook] = useState(initialBookState);
   const { id } = useParams<{ id: string }>();
-  const matchedBook = books.find((book) => book.id === +id);
+
+  useEffect(() => {
+    const fetchBook = async () => {
+      try {
+        const results = await axios.get(`/api/books/${id}`);
+        const book = results.data as BookDefinition;
+
+        setBook(book);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchBook();
+  }, [id]);
 
   return (
     <>
@@ -23,17 +48,17 @@ function BookScreen() {
       </Link>
       <Row>
         <Col md={3}>
-          <Image src={matchedBook?.image} alt="Book cover" fluid />
+          <Image src={book.image} alt="Book cover" fluid />
         </Col>
 
         <Col md={6}>
           <ListGroup variant="flush">
             <ListGroupItem>
-              <h3>{matchedBook?.title}</h3>
+              <h3>{book.title}</h3>
             </ListGroupItem>
 
             <ListGroupItem>
-              <p>{matchedBook?.description}</p>
+              <p>{book.description}</p>
             </ListGroupItem>
           </ListGroup>
           <Row>
@@ -43,7 +68,7 @@ function BookScreen() {
                   <Row>
                     <Col>Owner:</Col>
                     <Col>
-                      <strong>{matchedBook?.owner}</strong>
+                      <strong>{book.owner}</strong>
                     </Col>
                   </Row>
                 </ListGroupItem>
@@ -51,14 +76,12 @@ function BookScreen() {
                 <ListGroupItem className="py-3">
                   <Row>
                     <Col>Status:</Col>
-                    <Col>
-                      {matchedBook?.isAvailable ? 'Available' : 'Booked'}
-                    </Col>
+                    <Col>{book.isAvailable ? 'Available' : 'Booked'}</Col>
                   </Row>
                 </ListGroupItem>
 
                 <ListGroupItem className="py-3">
-                  <Button disabled={!matchedBook?.isAvailable}>
+                  <Button disabled={!book.isAvailable}>
                     Request To Borrow
                   </Button>
                 </ListGroupItem>
