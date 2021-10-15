@@ -10,12 +10,12 @@ interface BookProps {
 function Book({ book }: BookProps) {
   return (
     <Card className="my-3 rounded">
-      <Link to={`/book/${book.id}`}>
+      <Link to={`/books/${book._id}`}>
         <Card.Img src={book.image} variant="top" />
       </Link>
 
       <Card.Body className="text-center">
-        <Link to={`/book/${book.id}`}>
+        <Link to={`/books/${book._id}`}>
           <Card.Title>
             <strong>{book.title}</strong>
           </Card.Title>

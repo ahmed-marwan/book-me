@@ -12,7 +12,7 @@ import {
 import { BookDefinition } from './HomeScreen';
 
 const initialBookState = {
-  id: 0,
+  _id: '',
   title: '',
   author: '',
   description: '',

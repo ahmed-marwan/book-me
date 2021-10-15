@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import Book from '../components/Book';
 
 export interface BookDefinition {
-  id: number;
+  _id: string;
   title: string;
   author: string;
   description: string;
@@ -38,7 +38,7 @@ function HomeScreen() {
       <Row>
         {books.map((book) => {
           return (
-            <Col sm={12} md={6} lg={4} xl={3} key={book.id}>
+            <Col sm={12} md={6} lg={4} xl={3} key={book._id}>
               <Book book={book} />
             </Col>
           );
