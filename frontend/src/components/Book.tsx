@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import { BookDefinition } from '../screens/HomeScreen';
+import { IBook } from '../models/IBook';
 
 interface BookProps {
-  book: BookDefinition;
+  book: IBook;
 }
 
 function Book({ book }: BookProps) {

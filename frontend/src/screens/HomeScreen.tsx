@@ -1,48 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
+import { RootState } from '../state/reducers/rootReducer';
+import { BooksListState } from '../state/types/booksListTypes';
+import { fetchBooksList } from '../state/actions/booksListActions';
 import Book from '../components/Book';
-
-export interface BookDefinition {
-  _id: string;
-  title: string;
-  author: string;
-  description: string;
-  image: string;
-  genre: string;
-  owner: string;
-  isAvailable: boolean;
-}
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 function HomeScreen() {
-  const [books, setBooks] = useState<BookDefinition[]>([]);
+  const dispatch = useDispatch();
+
+  const { pending, books, error } = useSelector<RootState, BooksListState>(
+    (state) => state.booksList
+  );
 
   useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const { data: books } = await axios.get<BookDefinition[]>('/api/books');
-
-        setBooks(books);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchBooks();
-  }, []);
+    dispatch(fetchBooksList());
+  }, [dispatch]);
 
   return (
     <>
       <h1>Explore Available Books</h1>
 
       <Row>
-        {books.map((book) => {
-          return (
-            <Col sm={12} md={6} lg={4} xl={3} key={book._id}>
-              <Book book={book} />
-            </Col>
-          );
-        })}
+        {pending ? (
+          <Loader />
+        ) : error ? (
+          <Message variant="danger">{error}</Message>
+        ) : (
+          books.map((book) => {
+            return (
+              <Col sm={12} md={6} lg={4} xl={3} key={book._id}>
+                <Book book={book} />
+              </Col>
+            );
+          })
+        )}
       </Row>
     </>
   );
