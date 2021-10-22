@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import 'colors';
 import connectDB from './database/db';
 import bookRoutes from './routes/bookRoutes';
+import userRoutes from './routes/userRoutes';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/api/books', bookRoutes);
+app.use('/api/users', userRoutes);
 
 app.listen(5000, () => {
   const PORT = process.env.PORT || 5000;
