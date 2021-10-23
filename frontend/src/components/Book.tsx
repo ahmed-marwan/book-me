@@ -11,7 +11,11 @@ function Book({ book }: BookProps) {
   return (
     <Card className="my-3 rounded">
       <Link to={`/books/${book._id}`}>
-        <Card.Img src={book.image} variant="top" />
+        <Card.Img
+          src={book.image}
+          variant="top"
+          style={{ maxHeight: '460px' }}
+        />
       </Link>
 
       <Card.Body className="text-center">

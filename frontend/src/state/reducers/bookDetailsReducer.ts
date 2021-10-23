@@ -15,14 +15,14 @@ const bookSample = {
   isAvailable: false,
 };
 
-const initialState: BookDetailsState = {
+export const bookDetailsinitialState: BookDetailsState = {
   pending: false,
   book: bookSample,
   error: null,
 };
 
 const bookDetailsReducer = (
-  state = initialState,
+  state = bookDetailsinitialState,
   action: BookDetailsActions
 ) => {
   switch (action.type) {

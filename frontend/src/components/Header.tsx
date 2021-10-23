@@ -1,8 +1,21 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { RootState } from '../state/reducers/rootReducer';
+import { UserState } from '../state/types/userLoginTypes';
+import { logoutUser } from '../state/actions/userLoginActions';
 
 function Header() {
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector<RootState, UserState>(
+    (state) => state.userLogin
+  );
+
+  const logoutHandler = () => {
+    dispatch(logoutUser());
+  };
+
   return (
     <header>
       <Navbar className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -22,15 +35,26 @@ function Header() {
             <Nav>
               <LinkContainer to="/mybooks">
                 <Nav.Link>
-                  <i className="fas fa-stream"></i>My Books
+                  <i className="fas fa-stream px-1"></i>My Books
                 </Nav.Link>
               </LinkContainer>
+              {userInfo.name !== '' ? (
+                <NavDropdown title={userInfo.name} id="username">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
 
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <i className="fas fa-user"></i>Login
-                </Nav.Link>
-              </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to="/login">
+                  <Nav.Link>
+                    <i className="fas fa-user px-1"></i>Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

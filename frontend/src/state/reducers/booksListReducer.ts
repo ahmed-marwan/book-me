@@ -1,13 +1,16 @@
 import { booksListActionTypes } from '../action-types/booksListActionTypes';
 import { BooksListActions, BooksListState } from '../types/booksListTypes';
 
-const initialState: BooksListState = {
+export const bookListInitialState: BooksListState = {
   pending: false,
   books: [],
   error: null,
 };
 
-const booksListReducer = (state = initialState, action: BooksListActions) => {
+const booksListReducer = (
+  state = bookListInitialState,
+  action: BooksListActions
+) => {
   switch (action.type) {
     case booksListActionTypes.BOOKS_LIST_REQUEST:
       return {
