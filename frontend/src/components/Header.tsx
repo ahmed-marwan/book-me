@@ -5,6 +5,7 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { RootState } from '../state/reducers/rootReducer';
 import { UserState } from '../state/types/userLoginTypes';
 import { logoutUser } from '../state/actions/userLoginActions';
+import { useHistory } from 'react-router';
 
 function Header() {
   const dispatch = useDispatch();
@@ -12,8 +13,12 @@ function Header() {
     (state) => state.userLogin
   );
 
+  const history = useHistory();
+
   const logoutHandler = () => {
     dispatch(logoutUser());
+
+    history.push('/');
   };
 
   return (

@@ -6,6 +6,7 @@ const userSample = {
   name: '',
   email: '',
   password: '',
+  token: '',
 };
 
 export const userRegisterInitialState: UserState = {

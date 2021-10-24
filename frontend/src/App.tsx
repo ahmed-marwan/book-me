@@ -7,6 +7,7 @@ import HomeScreen from './screens/HomeScreen';
 import BookScreen from './screens/BookScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/books/:id" component={BookScreen} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/login" component={LoginScreen} />
+          <Route path="/profile" component={ProfileScreen} />
         </Container>
       </main>
 
