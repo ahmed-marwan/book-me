@@ -12,6 +12,8 @@ export interface IUser {
   borrowHistory: any;
   tokens?: { token: string }[];
   generateAuthToken(): string;
+  //@ts-ignore
+  save: any;
 }
 
 interface UserModel extends Model<IUser> {

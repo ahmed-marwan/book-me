@@ -6,9 +6,3 @@ namespace NodeJS {
     JWT_SECRET: string;
   }
 }
-
-namespace Express {
-  interface Request {
-    authUser: IUser;
-  }
-}

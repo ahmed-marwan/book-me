@@ -65,4 +65,35 @@ router.get('/profile', auth, (req, res) => {
   res.send(req.authUser);
 });
 
+/**
+ * @desc   Update user profile
+ * @route  PATCH /api/users/profile
+ * @access Private
+ */
+router.patch(
+  '/profile',
+  auth,
+  async (
+    req: Request<{}, {}, { name: string; email: string; password: string }>,
+    res: Response
+  ) => {
+    const updatedUser = req.authUser;
+    const { name, email, password } = req.body;
+
+    try {
+      updatedUser.name = name || updatedUser.name;
+      updatedUser.email = email || updatedUser.email;
+      if (password) {
+        updatedUser.password = password;
+      }
+
+      await updatedUser.save();
+
+      res.send(updatedUser);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  }
+);
+
 export default router;

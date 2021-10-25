@@ -5,9 +5,11 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { getUserDetails } from '../state/actions/userDetailsAction';
 import { RootState } from '../state/reducers/rootReducer';
+import { getUserDetails } from '../state/actions/userDetailsAction';
 import { UserDetailsState } from '../state/types/userDetailsTypes';
+import { updateUserProfile } from '../state/actions/userUpdateProfileAction';
+import { UserProfileState } from '../state/types/userUpdateProfileTypes';
 
 function ProfileScreen() {
   const [name, setName] = useState('');
@@ -21,6 +23,10 @@ function ProfileScreen() {
     RootState,
     UserDetailsState
   >((state) => state.userDetails);
+
+  const { userProfile } = useSelector<RootState, UserProfileState>(
+    (state) => state.userUpdateProfile
+  );
 
   const history = useHistory();
 
@@ -39,7 +45,7 @@ function ProfileScreen() {
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
     } else {
-      // Dispatch update profile action
+      dispatch(updateUserProfile(name, email, password));
     }
   };
 
@@ -50,6 +56,9 @@ function ProfileScreen() {
 
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
+        {userProfile.success && (
+          <Message variant="success">Profile Updated Successfully</Message>
+        )}
         {pending && <Loader />}
 
         <Form onSubmit={submitHandler}>
