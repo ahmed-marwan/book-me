@@ -21,7 +21,7 @@ const importData = async () => {
     const createdUsers = await User.insertMany(users);
 
     const sampleBooks = books.map((book) => {
-      let randomNum = Math.floor(Math.random() * 3);
+      let randomNum = Math.floor(Math.random() * 2);
 
       return {
         ...book,

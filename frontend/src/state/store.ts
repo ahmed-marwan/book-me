@@ -6,6 +6,8 @@ import { bookListInitialState } from './reducers/booksListReducer';
 import { bookDetailsinitialState } from './reducers/bookDetailsReducer';
 import { userLoginInitialState } from './reducers/userLoginReducer';
 import { UserState } from './types/userLoginTypes';
+import { myBooksInitialState } from './reducers/myBooksReducer';
+import { MyBooksState } from './types/myBooksTypes';
 
 const getUserFromStorage = () => {
   let userInfoFromStorage = localStorage.getItem('userInfo');
@@ -17,10 +19,21 @@ const getUserFromStorage = () => {
   } as UserState;
 };
 
+const getMyBooksFromStorage = () => {
+  let myBooksFromStorage = localStorage.getItem('myBooks');
+  if (!myBooksFromStorage) return myBooksInitialState;
+
+  return {
+    ...myBooksInitialState,
+    myBooks: JSON.parse(myBooksFromStorage),
+  } as MyBooksState;
+};
+
 const initialState = {
   booksList: bookListInitialState,
   bookDetails: bookDetailsinitialState,
   userLogin: getUserFromStorage(),
+  myBooks: getMyBooksFromStorage(),
 };
 
 let middlewares = applyMiddleware(...[thunk]);

@@ -66,6 +66,12 @@ const userSchema = new Schema<IUser, UserModel>(
   }
 );
 
+userSchema.virtual('myBooks', {
+  ref: 'Book',
+  localField: '_id',
+  foreignField: 'owner',
+});
+
 // Hash plain text password before saving
 userSchema.pre('save', async function (next) {
   const user = this;
