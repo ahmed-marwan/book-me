@@ -50,4 +50,24 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+/**
+ * @desc   Delete a single book
+ * @route  DELETE /api/books/:id
+ * @access Private
+ */
+ router.delete('/:id', auth, async (req, res) => {
+  try {
+    const book = await Book.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.authUser._id,
+    });
+
+    if (!book) return res.status(404).send();
+
+    res.send({ message: 'Book removed' });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 export default router;

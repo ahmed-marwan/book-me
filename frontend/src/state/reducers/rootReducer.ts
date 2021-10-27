@@ -6,6 +6,7 @@ import userRegisterReducer from './userRegisterReducer';
 import userDetailsReducer from './userDetailsReducer';
 import userUpdateProfileReducer from './userUpdateProfileReducer';
 import myBooksReducer from './myBooksReducer';
+import bookDeleteReducer from './bookDeleteReducer';
 
 const rootReducer = combineReducers({
   booksList: booksListReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   myBooks: myBooksReducer,
+  bookDelete: bookDeleteReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

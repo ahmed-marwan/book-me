@@ -15,6 +15,8 @@ import Loader from '../components/Loader';
 import { RootState } from '../state/reducers/rootReducer';
 import { MyBooksState } from '../state/types/myBooksTypes';
 import { fetchMyBooks } from '../state/actions/myBooksActions';
+import { BookDeleteState } from '../state/types/bookDeleteTypes';
+import { deleteBook } from '../state/actions/bookDeleteActions';
 
 function MyBooksScreen() {
   const dispatch = useDispatch();
@@ -23,17 +25,25 @@ function MyBooksScreen() {
     (state) => state.myBooks
   );
 
+  const {
+    pending: pendingBookDelete,
+    success,
+    error: errorBookDelete,
+  } = useSelector<RootState, BookDeleteState>((state) => state.bookDelete);
+
   useEffect(() => {
     dispatch(fetchMyBooks());
-  }, [dispatch]);
+  }, [dispatch, success]);
 
   const uploadBookHandler = () => {
     console.log('upload book logic');
   };
 
-  const deleteHandler = (id: string) => {
+  const deleteBookHandler = (id: string, isAvailable: boolean) => {
+    if (!isAvailable) return window.alert('Book is currently booked!');
+
     if (window.confirm('Are you sure?!')) {
-      // Delete book
+      dispatch(deleteBook(id));
     }
   };
 
@@ -53,65 +63,74 @@ function MyBooksScreen() {
         </Col>
       </Row>
 
-      {pending && <Loader />}
-      {error && <Message variant="danger">{error}</Message>}
+      {pendingBookDelete && <Loader />}
+      {errorBookDelete && <Message variant="danger">{errorBookDelete}</Message>}
+      {success && <Message variant="success">Book Deleted</Message>}
 
-      <Table bordered striped hover responsive="true">
-        <thead>
-          <tr>
-            <th>TITLE</th>
-            <th>AUTHOR</th>
-            <th>GENRE</th>
-            <th>STATUS</th>
-            <th className="text-center">BORROWER</th>
-            <th className="text-center">EXPECTED RETURN DATE</th>
-          </tr>
-        </thead>
-        <tbody>
-          {myBooks.map((book) => (
-            <tr key={book._id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>{book.genre}</td>
-              <td>{book.isAvailable ? 'Available' : 'Borrowed'}</td>
-              <td className="text-center">
-                {!book.isAvailable ? 'Borrower Name' : '--'}
-              </td>
-              <td className="text-center">
-                {!book.isAvailable ? 'DD/MM/YY' : '--'}
-              </td>
+      {pending ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <Table bordered striped hover responsive="true">
+          <thead>
+            <tr>
+              <th>TITLE</th>
+              <th>AUTHOR</th>
+              <th>GENRE</th>
+              <th>STATUS</th>
+              <th className="text-center">BORROWER</th>
+              <th className="text-center">EXPECTED RETURN DATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            {myBooks.map((book) => (
+              <tr key={book._id}>
+                <td>{book.title}</td>
+                <td>{book.author}</td>
+                <td>{book.genre}</td>
+                <td>{book.isAvailable ? 'Available' : 'Borrowed'}</td>
+                <td className="text-center">
+                  {!book.isAvailable ? 'Borrower Name' : '--'}
+                </td>
+                <td className="text-center">
+                  {!book.isAvailable ? 'DD/MM/YY' : '--'}
+                </td>
 
-              <td className="text-center">
-                <LinkContainer to={`/books/${book._id}/edit`}>
+                <td className="text-center">
+                  <LinkContainer to={`/books/${book._id}/edit`}>
+                    <OverlayTrigger
+                      placement="left"
+                      overlay={
+                        <Tooltip id="edit-book-info">Edit Book Info</Tooltip>
+                      }
+                    >
+                      <Button variant="light" className="btn-sm">
+                        <i className="fas fa-edit"></i>
+                      </Button>
+                    </OverlayTrigger>
+                  </LinkContainer>
+
                   <OverlayTrigger
-                    placement="left"
-                    overlay={
-                      <Tooltip id="edit-book-info">Edit Book Info</Tooltip>
-                    }
+                    placement="right"
+                    overlay={<Tooltip id="edit-book-info">Delete Book</Tooltip>}
                   >
-                    <Button variant="light" className="btn-sm">
-                      <i className="fas fa-edit"></i>
+                    <Button
+                      variant="danger"
+                      className="btn-sm"
+                      onClick={() =>
+                        deleteBookHandler(book._id, book.isAvailable)
+                      }
+                    >
+                      <i className="fas fa-trash"></i>
                     </Button>
                   </OverlayTrigger>
-                </LinkContainer>
-
-                <OverlayTrigger
-                  placement="right"
-                  overlay={<Tooltip id="edit-book-info">Delete Book</Tooltip>}
-                >
-                  <Button
-                    variant="danger"
-                    className="btn-sm"
-                    onClick={() => deleteHandler(book._id)}
-                  >
-                    <i className="fas fa-trash"></i>
-                  </Button>
-                </OverlayTrigger>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
     </>
   );
 }
