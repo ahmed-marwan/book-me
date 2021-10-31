@@ -3,7 +3,7 @@ import axios from 'axios';
 import { IBook } from '../../models/IBook';
 import { myBooksActionTypes } from '../action-types/myBooksActionTypes';
 import { MyBooksActions } from '../types/myBooksTypes';
-import { RootState } from '../reducers/rootReducer';
+import { RootState } from '../reducers/index/rootReducer';
 import { ThunkAction } from 'redux-thunk';
 
 export const fetchMyBooks =

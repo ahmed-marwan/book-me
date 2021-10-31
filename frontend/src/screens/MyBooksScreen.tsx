@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   Row,
   Col,
@@ -12,7 +13,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 
-import { RootState } from '../state/reducers/rootReducer';
+import { RootState } from '../state/reducers/index/rootReducer';
 import { MyBooksState } from '../state/types/myBooksTypes';
 import { fetchMyBooks } from '../state/actions/myBooksActions';
 import { BookDeleteState } from '../state/types/bookDeleteTypes';
@@ -27,17 +28,13 @@ function MyBooksScreen() {
 
   const {
     pending: pendingBookDelete,
-    success,
+    success: successBookDelete,
     error: errorBookDelete,
   } = useSelector<RootState, BookDeleteState>((state) => state.bookDelete);
 
   useEffect(() => {
     dispatch(fetchMyBooks());
-  }, [dispatch, success]);
-
-  const uploadBookHandler = () => {
-    console.log('upload book logic');
-  };
+  }, [dispatch, successBookDelete]);
 
   const deleteBookHandler = (id: string, isAvailable: boolean) => {
     if (!isAvailable) return window.alert('Book is currently booked!');
@@ -57,15 +54,15 @@ function MyBooksScreen() {
         </Col>
 
         <Col style={{ display: 'flex', justifyContent: 'end' }}>
-          <Button onClick={uploadBookHandler}>
+          <Link to="/book/create" className="btn btn-primary my-3">
             <i className="fas fa-plus"></i> Upload Book
-          </Button>
+          </Link>
         </Col>
       </Row>
 
       {pendingBookDelete && <Loader />}
       {errorBookDelete && <Message variant="danger">{errorBookDelete}</Message>}
-      {success && <Message variant="success">Book Deleted</Message>}
+      {successBookDelete && <Message variant="success">Book Deleted</Message>}
 
       {pending ? (
         <Loader />
@@ -98,18 +95,18 @@ function MyBooksScreen() {
                 </td>
 
                 <td className="text-center">
-                  <LinkContainer to={`/books/${book._id}/edit`}>
-                    <OverlayTrigger
-                      placement="left"
-                      overlay={
-                        <Tooltip id="edit-book-info">Edit Book Info</Tooltip>
-                      }
-                    >
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip id="edit-book-info">Edit Book Info</Tooltip>
+                    }
+                  >
+                    <LinkContainer to={`/book/${book._id}/edit`}>
                       <Button variant="light" className="btn-sm">
                         <i className="fas fa-edit"></i>
                       </Button>
-                    </OverlayTrigger>
-                  </LinkContainer>
+                    </LinkContainer>
+                  </OverlayTrigger>
 
                   <OverlayTrigger
                     placement="right"
@@ -119,7 +116,7 @@ function MyBooksScreen() {
                       variant="danger"
                       className="btn-sm"
                       onClick={() =>
-                        deleteBookHandler(book._id, book.isAvailable)
+                        deleteBookHandler(book._id!, book.isAvailable!)
                       }
                     >
                       <i className="fas fa-trash"></i>

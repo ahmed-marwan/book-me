@@ -1,6 +1,20 @@
-import mongoose from 'mongoose';
+import { ObjectId } from 'mongodb';
+import { Model, Schema, model } from 'mongoose';
 
-const bookSchema = new mongoose.Schema(
+export interface IBook {
+  _id: string;
+  title: string;
+  author: string;
+  description: string;
+  genre: string;
+  image: string;
+  owner: ObjectId;
+  isAvailable: boolean;
+  isReturned: boolean;
+  returnedAt: Date;
+}
+
+const bookSchema = new Schema<IBook>(
   {
     title: {
       type: String,
@@ -25,13 +39,12 @@ const bookSchema = new mongoose.Schema(
       required: true,
     },
     owner: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
     isAvailable: {
       type: Boolean,
-      required: true,
       default: true,
     },
     isReturned: {
@@ -45,6 +58,6 @@ const bookSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Book = mongoose.model('Book', bookSchema);
+const Book = model<IBook>('Book', bookSchema);
 
 export default Book;

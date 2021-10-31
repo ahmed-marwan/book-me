@@ -5,7 +5,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { RootState } from '../state/reducers/rootReducer';
+import { RootState } from '../state/reducers/index/rootReducer';
 import { getUserDetails } from '../state/actions/userDetailsAction';
 import { UserDetailsState } from '../state/types/userDetailsTypes';
 import { updateUserProfile } from '../state/actions/userUpdateProfileAction';

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from './reducers/rootReducer';
+import rootReducer from './reducers/index/rootReducer';
 import { bookListInitialState } from './reducers/booksListReducer';
 import { bookDetailsinitialState } from './reducers/bookDetailsReducer';
 import { userLoginInitialState } from './reducers/userLoginReducer';

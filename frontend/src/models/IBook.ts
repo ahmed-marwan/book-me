@@ -1,10 +1,10 @@
 export interface IBook {
-  _id: string;
+  _id?: string;
   title: string;
   author: string;
   description: string;
   image: string;
   genre: string;
-  owner: string;
-  isAvailable: boolean;
+  owner?: string;
+  isAvailable?: boolean;
 }

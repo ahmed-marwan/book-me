@@ -10,7 +10,7 @@ import {
   ListGroupItem,
 } from 'react-bootstrap';
 
-import { RootState } from '../state/reducers/rootReducer';
+import { RootState } from '../state/reducers/index/rootReducer';
 import { BookDetailsState } from '../state/types/bookDetailsTypes';
 import { fetchBookDetails } from '../state/actions/bookDetailsActions';
 

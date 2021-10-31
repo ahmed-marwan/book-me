@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
-import { RootState } from '../state/reducers/rootReducer';
+import { RootState } from '../state/reducers/index/rootReducer';
 import { BooksListState } from '../state/types/booksListTypes';
 import { fetchBooksList } from '../state/actions/booksListActions';
 import Book from '../components/Book';
@@ -31,7 +31,14 @@ function HomeScreen() {
         ) : (
           books.map((book) => {
             return (
-              <Col sm={12} md={6} lg={4} xl={3} key={book._id}>
+              <Col
+                sm={12}
+                md={6}
+                lg={4}
+                xl={3}
+                key={book._id}
+                className="align-items-stretch d-flex"
+              >
                 <Book book={book} />
               </Col>
             );

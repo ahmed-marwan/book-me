@@ -3,7 +3,7 @@ import axios from 'axios';
 import { userUpdateProfileActionTypes } from '../action-types/userActionTypes';
 import { UserUpdateProfileActions } from '../types/userUpdateProfileTypes';
 import { IUser } from '../../models/IUser';
-import { RootState } from '../reducers/rootReducer';
+import { RootState } from '../reducers/index/rootReducer';
 import { ThunkAction } from 'redux-thunk';
 
 export const updateUserProfile =

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { RootState } from '../state/reducers/rootReducer';
+import { RootState } from '../state/reducers/index/rootReducer';
 import { UserState } from '../state/types/userLoginTypes';
 import { logoutUser } from '../state/actions/userLoginActions';
 import { useHistory } from 'react-router';

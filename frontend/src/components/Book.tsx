@@ -14,7 +14,7 @@ function Book({ book }: BookProps) {
         <Card.Img
           src={book.image}
           variant="top"
-          style={{ maxHeight: '460px' }}
+          style={{ minHeight: '480px' }}
         />
       </Link>
 

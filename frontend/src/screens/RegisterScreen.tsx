@@ -7,7 +7,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 import { registerUser } from '../state/actions/userRegisterAction';
-import { RootState } from '../state/reducers/rootReducer';
+import { RootState } from '../state/reducers/index/rootReducer';
 import { UserState } from '../state/types/userRegisterTypes';
 
 function RegisterScreen() {

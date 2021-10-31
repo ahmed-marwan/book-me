@@ -2,7 +2,7 @@ import { Action, Dispatch } from 'redux';
 import axios from 'axios';
 import { bookDeleteActionTypes } from '../action-types/bookDeleteActionTypes';
 import { BookDeleteActions } from '../types/bookDeleteTypes';
-import { RootState } from '../reducers/rootReducer';
+import { RootState } from '../reducers/index/rootReducer';
 import { ThunkAction } from 'redux-thunk';
 
 export const deleteBook =

@@ -9,6 +9,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import MyBooksScreen from './screens/MyBooksScreen';
+import BookEditScreen from './screens/BookEditScreen';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
           <Route path="/login" component={LoginScreen} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/mybooks" component={MyBooksScreen} />
+          <Route path="/book/:id/edit" component={BookEditScreen} />
+          <Route path="/book/create" component={BookEditScreen} exact />
         </Container>
       </main>
 
