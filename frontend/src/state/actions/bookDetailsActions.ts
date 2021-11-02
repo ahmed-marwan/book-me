@@ -11,7 +11,9 @@ export const fetchBookDetails =
         type: bookDetailsActionTypes.BOOK_DETAILS_REQUEST,
       });
 
-      const { data } = await axios.get<IBook>(`/api/books/${id}`);
+      const { data } = await axios.get<{ book: IBook; ownerName: string }>(
+        `/api/books/${id}`
+      );
 
       dispatch({
         type: bookDetailsActionTypes.BOOK_DETAILS_SUCCESS,

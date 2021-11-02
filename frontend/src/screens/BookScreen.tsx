@@ -20,9 +20,11 @@ import Message from '../components/Message';
 function BookScreen() {
   const dispatch = useDispatch();
 
-  const { pending, book, error } = useSelector<RootState, BookDetailsState>(
-    (state) => state.bookDetails
-  );
+  const {
+    pending,
+    bookDetails: { book, ownerName },
+    error,
+  } = useSelector<RootState, BookDetailsState>((state) => state.bookDetails);
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
@@ -51,36 +53,58 @@ function BookScreen() {
               </ListGroupItem>
 
               <ListGroupItem>
+                <p>
+                  <strong>{book.author}</strong>
+                </p>
+
                 <p>{book.description}</p>
               </ListGroupItem>
             </ListGroup>
-            <Row>
-              <Col md={8}>
-                <ListGroup variant="flush">
-                  <ListGroupItem className="py-3">
-                    <Row>
-                      <Col>Owner:</Col>
-                      <Col>
-                        <strong>{book.owner}</strong>
-                      </Col>
-                    </Row>
-                  </ListGroupItem>
+            {/* <Row> */}
+            <Col md={8}>
+              <ListGroup variant="flush">
+                <ListGroupItem className="py-3">
+                  <Row>
+                    <Col>Owner:</Col>
+                    <Col>
+                      <strong>{ownerName}</strong>
+                    </Col>
+                  </Row>
+                </ListGroupItem>
 
-                  <ListGroupItem className="py-3">
-                    <Row>
-                      <Col>Status:</Col>
-                      <Col>{book.isAvailable ? 'Available' : 'Booked'}</Col>
-                    </Row>
-                  </ListGroupItem>
+                <ListGroupItem className="py-3">
+                  <Row>
+                    <Col>Status:</Col>
+                    <Col>{book.isAvailable ? 'Available' : 'Booked'}</Col>
+                  </Row>
+                </ListGroupItem>
 
-                  <ListGroupItem className="py-3">
-                    <Button disabled={!book.isAvailable}>
-                      Request To Borrow
-                    </Button>
-                  </ListGroupItem>
-                </ListGroup>
-              </Col>
-            </Row>
+                {!book.isAvailable && (
+                  <>
+                    <ListGroupItem className="py-3">
+                      <Row>
+                        <Col>Borrowed By:</Col>
+                        <Col>Borrower Name</Col>
+                      </Row>
+                    </ListGroupItem>
+
+                    <ListGroupItem className="py-3">
+                      <Row>
+                        <Col>Expected Return Date:</Col>
+                        <Col>Date</Col>
+                      </Row>
+                    </ListGroupItem>
+                  </>
+                )}
+
+                <ListGroupItem className="py-4">
+                  <Button disabled={!book.isAvailable}>
+                    Request To Borrow
+                  </Button>
+                </ListGroupItem>
+              </ListGroup>
+            </Col>
+            {/* </Row> */}
           </Col>
         </Row>
       )}

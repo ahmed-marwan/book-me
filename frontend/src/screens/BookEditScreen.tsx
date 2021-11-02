@@ -29,9 +29,11 @@ function BookEditScreen() {
 
   const dispatch = useDispatch();
 
-  const { pending, book, error } = useSelector<RootState, BookDetailsState>(
-    (state) => state.bookDetails
-  );
+  const {
+    pending,
+    bookDetails: { book },
+    error,
+  } = useSelector<RootState, BookDetailsState>((state) => state.bookDetails);
 
   const {
     pending: pendingBookUpdate,

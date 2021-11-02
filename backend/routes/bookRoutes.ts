@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import Book, { IBook } from '../models/bookModel';
 import auth from '../middleware/auth';
+import User from '../models/userModel';
 
 const router = express.Router();
 
@@ -42,9 +43,12 @@ router.get('/mybooks', auth, async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
+
     if (!book) return res.status(404).send({ message: 'Book not found!' });
 
-    res.send(book);
+    const ownerName = await User.findById(book.owner);
+
+    res.send({ book, ownerName: ownerName!.name });
   } catch (error) {
     res.status(500).send(error);
   }

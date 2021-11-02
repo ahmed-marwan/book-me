@@ -3,7 +3,10 @@ import { bookDetailsActionTypes } from '../action-types/bookDetailsActionTypes';
 
 export interface BookDetailsState {
   pending: boolean;
-  book: IBook;
+  bookDetails: {
+    book: IBook;
+    ownerName: string;
+  };
   error: string | null;
 }
 
@@ -13,7 +16,10 @@ export type BookDetailsRequest = {
 
 export type BookDetailsSuccess = {
   type: typeof bookDetailsActionTypes.BOOK_DETAILS_SUCCESS;
-  payload: IBook;
+  payload: {
+    book: IBook;
+    ownerName: string;
+  };
 };
 
 export type BookDetailsFailure = {

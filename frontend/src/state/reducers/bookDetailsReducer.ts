@@ -17,7 +17,10 @@ const bookSample = {
 
 export const bookDetailsinitialState: BookDetailsState = {
   pending: false,
-  book: bookSample,
+  bookDetails: {
+    book: bookSample,
+    ownerName: '',
+  },
   error: null,
 };
 
@@ -35,7 +38,10 @@ const bookDetailsReducer = (
       return {
         ...state,
         pending: false,
-        book: action.payload,
+        bookDetails: {
+          book: action.payload.book,
+          ownerName: action.payload.ownerName,
+        },
       };
     case bookDetailsActionTypes.BOOK_DETAILS_FAILURE:
       return {
