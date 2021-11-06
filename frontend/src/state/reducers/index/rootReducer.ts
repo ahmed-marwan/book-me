@@ -9,6 +9,7 @@ import myBooksReducer from '../myBooksReducer';
 import bookDeleteReducer from '../bookDeleteReducer';
 import bookCreateReducer from '../bookCreateReducer';
 import bookUpdateReducer from '../bookUpdateReducer';
+import borrowRequestReducer from '../borrowRequestReducer';
 
 const rootReducer = combineReducers({
   booksList: booksListReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   bookDelete: bookDeleteReducer,
   bookCreate: bookCreateReducer,
   bookUpdate: bookUpdateReducer,
+  borrowRequest: borrowRequestReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -6,6 +6,7 @@ import connectDB from './database/db';
 import bookRoutes from './routes/bookRoutes';
 import userRoutes from './routes/userRoutes';
 import uploadRoutes from './routes/uploadRoutes';
+import borrowRequestsRoutes from './routes/borrowRequestRouter';
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/api/books', bookRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/borrow-requests', borrowRequestsRoutes);
 
 const __mydirname = path.resolve();
 app.use('/uploads', express.static(path.join(__mydirname, '/uploads')));

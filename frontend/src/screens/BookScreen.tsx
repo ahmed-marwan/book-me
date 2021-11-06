@@ -13,6 +13,7 @@ import {
 import { RootState } from '../state/reducers/index/rootReducer';
 import { BookDetailsState } from '../state/types/bookDetailsTypes';
 import { fetchBookDetails } from '../state/actions/bookDetailsActions';
+import { createBorrowRequest } from '../state/actions/borrowRequestActions';
 
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -30,6 +31,10 @@ function BookScreen() {
   useEffect(() => {
     dispatch(fetchBookDetails(id));
   }, [dispatch, id]);
+
+  const borrowRequestHandler = () => {
+    dispatch(createBorrowRequest(id));
+  };
 
   return (
     <>
@@ -60,7 +65,6 @@ function BookScreen() {
                 <p>{book.description}</p>
               </ListGroupItem>
             </ListGroup>
-            {/* <Row> */}
             <Col md={8}>
               <ListGroup variant="flush">
                 <ListGroupItem className="py-3">
@@ -98,13 +102,15 @@ function BookScreen() {
                 )}
 
                 <ListGroupItem className="py-4">
-                  <Button disabled={!book.isAvailable}>
+                  <Button
+                    disabled={!book.isAvailable}
+                    onClick={borrowRequestHandler}
+                  >
                     Request To Borrow
                   </Button>
                 </ListGroupItem>
               </ListGroup>
             </Col>
-            {/* </Row> */}
           </Col>
         </Row>
       )}
