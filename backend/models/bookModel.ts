@@ -9,9 +9,6 @@ export interface IBook {
   genre: string;
   image: string;
   owner: ObjectId;
-  isAvailable: boolean;
-  isReturned: boolean;
-  returnedAt: Date;
 }
 
 const bookSchema = new Schema<IBook>(
@@ -42,17 +39,6 @@ const bookSchema = new Schema<IBook>(
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
-    },
-    isAvailable: {
-      type: Boolean,
-      default: true,
-    },
-    isReturned: {
-      type: Boolean,
-      default: false,
-    },
-    returnedAt: {
-      type: Date,
     },
   },
   { timestamps: true }
